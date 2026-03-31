@@ -391,12 +391,69 @@ section {
   box-shadow: var(--shadow-md);
 }
 
-.hero__video-glass iframe {
+.hero__video-player,
+.hero__video-player iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.hero__video-player iframe {
+  pointer-events: none;
+}
+
+.hero__video-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.video-toggle {
+  pointer-events: auto;
+  width: 78px;
+  height: 78px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(6, 6, 12, 0.72);
+  color: var(--white);
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease, width 0.2s ease, height 0.2s ease, font-size 0.2s ease;
+}
+
+.video-toggle:hover {
+  transform: scale(1.04);
+  background: rgba(6, 6, 12, 0.84);
+}
+
+.video-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hero__video-glass.is-playing .hero__video-ui {
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 18px;
+}
+
+.hero__video-glass.is-playing .video-toggle {
+  width: 54px;
+  height: 54px;
+  font-size: 20px;
+  opacity: 0.88;
 }
 
 .hero__cta {
@@ -970,6 +1027,18 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
     content: " ";
   }
 
+  .video-toggle {
+    width: 86px;
+    height: 86px;
+    font-size: 30px;
+  }
+
+  .hero__video-glass.is-playing .video-toggle {
+    width: 58px;
+    height: 58px;
+    font-size: 21px;
+  }
+
   .pillars-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .bonus-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   .testimonials { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -1026,15 +1095,18 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
       </p>
 
       <div class="hero__video-section reveal">
-        <div class="hero__video-glass">
-          <iframe
-            src="https://www.youtube.com/embed/h31WKiggXUk"
-            title="Protocolo de Força Prática"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
+        <div class="hero__video-glass" id="videoBox">
+          <div id="yt-player" class="hero__video-player"></div>
+
+          <div class="hero__video-ui">
+            <button
+              type="button"
+              class="video-toggle"
+              id="videoToggle"
+              aria-label="Reproduzir vídeo"
+              aria-pressed="false"
+              disabled>▶</button>
+          </div>
         </div>
       </div>
 
@@ -1337,7 +1409,106 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
   <p style="margin-top:4px;">Resultados individuais podem variar.</p>
 </footer>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
+var player;
+var isPlaying = false;
+
+var videoWrapper = document.getElementById('videoBox');
+var videoButton = document.getElementById('videoToggle');
+
+function setVideoPausedUI() {
+  if (!videoWrapper || !videoButton) return;
+  videoWrapper.classList.remove('is-playing');
+  videoButton.textContent = '▶';
+  videoButton.setAttribute('aria-label', 'Reproduzir vídeo');
+  videoButton.setAttribute('aria-pressed', 'false');
+}
+
+function setVideoPlayingUI() {
+  if (!videoWrapper || !videoButton) return;
+  videoWrapper.classList.add('is-playing');
+  videoButton.textContent = '❚❚';
+  videoButton.setAttribute('aria-label', 'Pausar vídeo');
+  videoButton.setAttribute('aria-pressed', 'true');
+}
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('yt-player', {
+    videoId: '2RSMdLowagc',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      rel: 0,
+      playsinline: 1,
+      iv_load_policy: 3
+    },
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady() {
+  if (videoButton) {
+    videoButton.disabled = false;
+  }
+
+  var iframe = player.getIframe();
+  if (iframe) {
+    iframe.setAttribute('tabindex', '-1');
+    iframe.setAttribute('aria-hidden', 'true');
+  }
+
+  setVideoPausedUI();
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    isPlaying = true;
+    setVideoPlayingUI();
+    return;
+  }
+
+  if (event.data === YT.PlayerState.ENDED) {
+    isPlaying = false;
+    try {
+      player.seekTo(0, true);
+    } catch (e) {}
+
+    setTimeout(function () {
+      try {
+        player.pauseVideo();
+      } catch (e) {}
+      setVideoPausedUI();
+    }, 120);
+    return;
+  }
+
+  if (
+    event.data === YT.PlayerState.PAUSED ||
+    event.data === YT.PlayerState.CUED ||
+    event.data === YT.PlayerState.UNSTARTED
+  ) {
+    isPlaying = false;
+    setVideoPausedUI();
+  }
+}
+
+if (videoButton) {
+  videoButton.addEventListener('click', function () {
+    if (!player || typeof player.playVideo !== 'function') return;
+
+    if (isPlaying) {
+      player.pauseVideo();
+    } else {
+      player.playVideo();
+    }
+  });
+}
+
 (function () {
   function scrollToOffer(e) {
     e.preventDefault();
