@@ -605,14 +605,35 @@ section {
 }
 
 .mini-offer__arrow {
-  margin: 10px auto 0;
-  text-align: center;
-  font-size: 24px;
-  line-height: 1;
-  color: rgba(24,19,36,0.62);
+  width: 28px;
+  height: 16px;
+  margin: 12px auto 0;
+  position: relative;
+  display: block;
   user-select: none;
-  display: inline-block;
-  font-weight: 700;
+}
+
+.mini-offer__arrow::before,
+.mini-offer__arrow::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  width: 14px;
+  height: 2px;
+  background: rgba(24,19,36,0.62);
+  border-radius: 999px;
+}
+
+.mini-offer__arrow::before {
+  left: 1px;
+  transform: rotate(36deg);
+  transform-origin: left center;
+}
+
+.mini-offer__arrow::after {
+  right: 1px;
+  transform: rotate(-36deg);
+  transform-origin: right center;
 }
 
 .story-quote,
@@ -1278,7 +1299,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
       <p class="mini-offer__guarantee">Acesso imediato · Garantia de 7 dias</p>
     </div>
     <p class="mini-offer__below reveal">É só continuar nessa página para ver<br>tudo o que você vai levar: <strong>o que cada aula<br>vai te ensinar e os bônus que entram junto<br>para te ajudar desde o começo.</strong></p>
-    <div class="mini-offer__arrow reveal" aria-hidden="true">⌄</div>
+    <div class="mini-offer__arrow reveal" aria-hidden="true"></div>
   </div>
 </section>
 
