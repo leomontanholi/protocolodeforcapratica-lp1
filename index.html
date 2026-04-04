@@ -605,29 +605,35 @@ section {
 }
 
 .mini-offer__arrow {
-  width: 48px;
-  margin: 12px auto 0;
+  width: 28px;
+  margin: 14px auto 0;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  opacity: 0.72;
 }
 
 .mini-offer__arrow svg {
   display: block;
-  width: 36px;
-  height: 44px;
+  width: 18px;
+  height: 18px;
   animation: miniArrowFloat 1.8s ease-in-out infinite;
 }
 
 .mini-offer__arrow path {
-  stroke: rgba(24,19,36,0.52);
-  stroke-width: 3.5;
+  stroke: rgba(24,19,36,0.58);
+  stroke-width: 2.25;
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+@keyframes miniArrowFloat {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.72;
+  }
   50% {
     transform: translateY(4px);
     opacity: 1;
@@ -1297,7 +1303,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
       <p class="mini-offer__guarantee">Acesso imediato · Garantia de 7 dias</p>
     </div>
     <p class="mini-offer__below reveal">É só continuar descendo a página para ver<br>tudo o que você vai levar: <strong>o que cada aula<br>vai te ensinar e os bônus que entram junto<br>para te ajudar desde o começo.</strong></p>
-    <div class="mini-offer__arrow reveal" aria-hidden="true"><svg viewBox="0 0 36 44" role="presentation" focusable="false"><path d="M18 6V28"/><path d="M8 24L18 34L28 24"/></svg></div>
+    <div class="mini-offer__arrow reveal" aria-hidden="true"><svg viewBox="0 0 20 20" role="presentation" focusable="false"><path d="M5.5 7.5L10 12l4.5-4.5"/></svg></div>
   </div>
 </section>
 
