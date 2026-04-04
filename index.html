@@ -605,20 +605,20 @@ section {
 }
 
 .mini-offer__arrow {
-  width: 28px;
-  margin: 14px auto 0;
+  width: 44px;
+  margin: 24px auto 0;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
   opacity: 0.72;
+  transform: translateY(8px);
 }
 
 .mini-offer__arrow svg {
   display: block;
-  width: 18px;
-  height: 18px;
-  animation: miniArrowFloat 1.8s ease-in-out infinite;
+  width: 36px;
+  height: 36px;
 }
 
 .mini-offer__arrow path {
@@ -627,17 +627,6 @@ section {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-@keyframes miniArrowFloat {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.72;
-  }
-  50% {
-    transform: translateY(4px);
-    opacity: 1;
-  }
 }
 
 .story-quote,
