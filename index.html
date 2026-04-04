@@ -8,6 +8,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
@@ -185,7 +187,10 @@ section {
 .section-light .guarantee__text,
 .section-light .forwho-list li,
 .section-light .offer-cash,
-.section-light .close__sub {
+.section-light .close__sub,
+.section-light .mini-offer__desc,
+.section-light .mini-offer__price-note,
+.section-light .mini-offer__guarantee {
   color: var(--muted-dark);
 }
 
@@ -199,7 +204,9 @@ section {
 .section-light .forwho-col__title,
 .section-light .close__hl,
 .section-light .offer-cash strong,
-.section-light .story-quote p {
+.section-light .story-quote p,
+.section-light .mini-offer__title,
+.section-light .mini-offer__price {
   color: var(--text-dark);
 }
 
@@ -212,7 +219,8 @@ section {
 .section-light .bonus-card__val,
 .section-light .forwho-list--no li,
 .section-light .cta-note,
-.section-light .close__final {
+.section-light .close__final,
+.section-light .mini-offer__top {
   color: var(--dim-dark);
 }
 
@@ -222,7 +230,8 @@ section {
 .section-light .testimonial,
 .section-light .forwho-col,
 .section-light .offer-card,
-.section-light .guarantee {
+.section-light .guarantee,
+.section-light .mini-offer {
   background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.55));
   border: 1px solid rgba(24,19,36,0.10);
   box-shadow: 0 14px 34px rgba(19,13,34,0.06);
@@ -233,7 +242,8 @@ section {
   border-color: rgba(94,23,235,0.16);
 }
 
-.section-light .offer-card {
+.section-light .offer-card,
+.section-light .mini-offer {
   background: linear-gradient(180deg, rgba(94,23,235,0.10), rgba(255,255,255,0.82));
   border-color: rgba(94,23,235,0.18);
   box-shadow: 0 16px 40px rgba(94,23,235,0.08), 0 10px 26px rgba(19,13,34,0.06);
@@ -391,6 +401,69 @@ section {
   box-shadow: var(--shadow-md);
 }
 
+.video-poster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  border: none;
+  padding: 0;
+  background: #09090f;
+  cursor: pointer;
+}
+
+.video-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6,6,12,0.08), rgba(6,6,12,0.24));
+}
+
+.video-poster__play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(6,6,12,0.74);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+}
+
+.video-poster__play::before {
+  content: '';
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid var(--white);
+}
+
+.video-poster__label {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,234,248,0.88);
+}
+
 .hero__video-glass iframe {
   position: absolute;
   inset: 0;
@@ -415,6 +488,89 @@ section {
   font-style: italic;
   color: var(--white);
   line-height: 1.65;
+}
+
+.mini-offer {
+  max-width: 520px;
+  margin: 28px auto 0;
+  padding: 24px 22px;
+  border-radius: var(--r);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-offer::before,
+.story-quote,
+.bonus-card,
+.offer-card {
+  position: relative;
+}
+
+.mini-offer::after,
+.bonus-card::before,
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(94,23,235,0.75), transparent);
+}
+
+.mini-offer__top {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.mini-offer__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.mini-offer__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 42ch;
+  margin: 0 auto 18px;
+}
+
+.mini-offer__price-wrap {
+  margin-bottom: 18px;
+}
+
+.mini-offer__price-note {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.mini-offer__price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.mini-offer__price span {
+  font-size: 22px;
+  vertical-align: top;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.mini-offer__guarantee {
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 
 .story-quote,
@@ -570,15 +726,6 @@ section {
 .bonus-card {
   position: relative;
   overflow: hidden;
-}
-
-.bonus-card::before,
-.offer-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(94,23,235,0.75), transparent);
 }
 
 .bonus-card__lbl {
@@ -983,6 +1130,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
   }
 
   .offer-card { padding: 38px 34px 42px; }
+  .mini-offer { padding: 28px 28px 30px; }
 
   .btn--primary, .btn--ghost {
     width: auto;
@@ -990,7 +1138,8 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
   }
 
   .hero__cta .btn,
-  .close__cta .btn {
+  .close__cta .btn,
+  .mini-offer .btn {
     width: 100%;
   }
 }
@@ -1020,7 +1169,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
     <img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1587272927987010&ev=PageView&noscript=1"/>
   </noscript>
-  
+
 <section class="hero section-first section-dark" id="top">
   <div class="wrap">
     <div class="hero__inner">
@@ -1044,20 +1193,26 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
       </p>
 
       <div class="hero__video-section reveal">
-        <div class="hero__video-glass">
-          <iframe
-            src="https://www.youtube.com/embed/2RSMdLowagc?controls=0"
-            title="Protocolo de Força Prática"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
+        <div class="hero__video-glass" id="video-container">
+          <button
+            type="button"
+            class="video-poster"
+            id="video-poster"
+            aria-label="Reproduzir vídeo do Protocolo de Força Prática"
+            data-embed="https://www.youtube.com/embed/2RSMdLowagc?autoplay=1&controls=1&rel=0">
+            <img
+              src="https://i.ytimg.com/vi/2RSMdLowagc/maxresdefault.jpg"
+              alt="Vídeo do Protocolo de Força Prática"
+              loading="eager"
+              fetchpriority="high">
+            <span class="video-poster__play" aria-hidden="true"></span>
+            <span class="video-poster__label">Clique para assistir</span>
+          </button>
         </div>
       </div>
 
       <div class="hero__cta reveal">
-        <a href="#oferta" class="btn btn--primary js-scroll">Quero o Protocolo Agora</a>
+        <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--primary" id="btn-hero-checkout">Quero o Protocolo Agora</a>
         <p class="cta-note">Acesso imediato · Garantia de 7 dias</p>
       </div>
     </div>
@@ -1088,6 +1243,18 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
         A raiz é quem você está se tornando. Quando a identidade está no lugar,
         a ação que parecia difícil se torna natural — <strong>porque passou a ser expressão de quem você é.</strong>
       </p>
+    </div>
+
+    <div class="mini-offer reveal">
+      <p class="mini-offer__top">Comece agora</p>
+      <h3 class="mini-offer__title">Protocolo de Força Prática</h3>
+      <p class="mini-offer__desc">10 aulas + 4 bônus para colocar sua vida em ordem com direção, estrutura e ação prática desde os primeiros dias.</p>
+      <div class="mini-offer__price-wrap">
+        <p class="mini-offer__price-note">Oferta de entrada</p>
+        <div class="mini-offer__price"><span>R$</span>67</div>
+      </div>
+      <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--primary">Quero Entrar por R$67</a>
+      <p class="mini-offer__guarantee">Acesso imediato · Garantia de 7 dias</p>
     </div>
   </div>
 </section>
@@ -1244,7 +1411,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
         </div>
 
         <div class="offer-cta">
-          <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" target="_blank" rel="noopener" class="btn btn--primary" id="btn-checkout">
+          <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--primary" id="btn-checkout">
             Quero Começar Agora
           </a>
           <div class="offer-badges">
@@ -1344,7 +1511,7 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
       A construção começa com uma decisão — e essa decisão é agora.
     </p>
     <div class="close__cta reveal">
-      <a href="#oferta" class="btn btn--ghost js-scroll">Quero o Protocolo — R$67</a>
+      <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--ghost">Quero o Protocolo — R$67</a>
     </div>
     <p class="close__final reveal">Não deixe para amanhã o homem<br>que você precisa ser hoje.</p>
   </div>
@@ -1357,28 +1524,26 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
 
 <script>
 (function () {
-  function scrollToOffer(e) {
-    e.preventDefault();
-    var t = document.getElementById('oferta');
-    if (!t) return;
-    t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var poster = document.getElementById('video-poster');
+  var container = document.getElementById('video-container');
 
-    setTimeout(function () {
-      var btn = document.getElementById('btn-checkout');
-      if (!btn) return;
-      btn.style.transition = 'transform .2s, box-shadow .2s';
-      btn.style.transform = 'scale(1.03)';
-      btn.style.boxShadow = '0 0 0 5px rgba(94,23,235,.28)';
-      setTimeout(function () {
-        btn.style.transform = '';
-        btn.style.boxShadow = '';
-      }, 600);
-    }, 650);
-  }
+  if (!poster || !container) return;
 
-  document.querySelectorAll('.js-scroll').forEach(function (el) {
-    el.addEventListener('click', scrollToOffer);
-  });
+  poster.addEventListener('click', function () {
+    var src = poster.getAttribute('data-embed');
+    if (!src) return;
+
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = 'Protocolo de Força Prática';
+    iframe.loading = 'eager';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+
+    container.innerHTML = '';
+    container.appendChild(iframe);
+  }, { once: true });
 })();
 </script>
 
