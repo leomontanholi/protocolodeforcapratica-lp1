@@ -189,7 +189,6 @@ section {
 .section-light .offer-cash,
 .section-light .close__sub,
 .section-light .mini-offer__desc,
-.section-light .mini-offer__price-note,
 .section-light .mini-offer__guarantee {
   color: var(--muted-dark);
 }
@@ -450,19 +449,6 @@ section {
   border-left: 20px solid var(--white);
 }
 
-.video-poster__label {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
-  z-index: 2;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(240,234,248,0.88);
-}
 
 .hero__video-glass iframe {
   position: absolute;
@@ -529,16 +515,17 @@ section {
 .mini-offer__title {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: 28px;
+  font-size: clamp(21px, 5.6vw, 28px);
   line-height: 1;
   text-transform: uppercase;
   margin-bottom: 10px;
+  white-space: nowrap;
 }
 
 .mini-offer__desc {
   font-size: 14px;
   line-height: 1.6;
-  max-width: 42ch;
+  max-width: 46ch;
   margin: 0 auto 18px;
 }
 
@@ -546,25 +533,18 @@ section {
   margin-bottom: 18px;
 }
 
-.mini-offer__price-note {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
 .mini-offer__price {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: 48px;
-  line-height: 1;
+  font-size: clamp(26px, 7vw, 36px);
+  line-height: 1.1;
 }
 
 .mini-offer__price span {
-  font-size: 22px;
-  vertical-align: top;
-  margin-top: 6px;
-  display: inline-block;
+  font-size: inherit;
+  vertical-align: baseline;
+  margin-top: 0;
+  display: inline;
 }
 
 .mini-offer__guarantee {
@@ -1199,14 +1179,13 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
             class="video-poster"
             id="video-poster"
             aria-label="Reproduzir vídeo do Protocolo de Força Prática"
-            data-embed="https://www.youtube.com/embed/2RSMdLowagc?autoplay=1&controls=1&rel=0">
+            data-embed="https://www.youtube.com/embed/2RSMdLowagc?autoplay=1&controls=0&rel=0">
             <img
               src="https://i.ytimg.com/vi/2RSMdLowagc/maxresdefault.jpg"
               alt="Vídeo do Protocolo de Força Prática"
               loading="eager"
               fetchpriority="high">
             <span class="video-poster__play" aria-hidden="true"></span>
-            <span class="video-poster__label">Clique para assistir</span>
           </button>
         </div>
       </div>
@@ -1221,37 +1200,12 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
 
 <section class="section-light">
   <div class="wrap">
-    <div class="reveal">
-      <p class="eyebrow">O que está acontecendo</p>
-      <div class="divider"></div>
-      <h2 class="display section-title">Você não está aqui<br>por falta de esforço.</h2>
-    </div>
-
-    <div class="reveal">
-      <p class="body-p" style="margin-top:24px;">
-        Você já tentou disciplina. Já tentou rotina. Já tentou o desafio de 30 dias,
-        o caderno de metas, o alarme das 5h.
-        <strong>Funciona por algumas semanas — depois para.</strong>
-      </p>
-
-      <div class="callout">
-        "Força de vontade é um recurso finito. Motivação é emocional e passa.
-        Métodos sem identidade são andaimes sem edifício."
-      </div>
-
-      <p class="body-p">
-        A raiz é quem você está se tornando. Quando a identidade está no lugar,
-        a ação que parecia difícil se torna natural — <strong>porque passou a ser expressão de quem você é.</strong>
-      </p>
-    </div>
-
     <div class="mini-offer reveal">
       <p class="mini-offer__top">Comece agora</p>
       <h3 class="mini-offer__title">Protocolo de Força Prática</h3>
-      <p class="mini-offer__desc">10 aulas + 4 bônus para colocar sua vida em ordem com direção, estrutura e ação prática desde os primeiros dias.</p>
+      <p class="mini-offer__desc">10 aulas + 4 bônus exclusivos para colocar sua vida em ordem com direção, estrutura e ação prática desde os primeiros dias.</p>
       <div class="mini-offer__price-wrap">
-        <p class="mini-offer__price-note">Oferta de entrada</p>
-        <div class="mini-offer__price"><span>R$</span>67</div>
+        <div class="mini-offer__price">9x de R$8,80 ou R$67 à vista</div>
       </div>
       <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--primary">Quero Entrar por R$67</a>
       <p class="mini-offer__guarantee">Acesso imediato · Garantia de 7 dias</p>
