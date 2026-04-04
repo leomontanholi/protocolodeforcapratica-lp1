@@ -476,9 +476,42 @@ section {
   line-height: 1.65;
 }
 
+.opportunity-note {
+  max-width: 320px;
+  margin: 0 auto 16px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(94,23,235,0.12), rgba(255,255,255,0.70));
+  border: 1px solid rgba(94,23,235,0.18);
+  box-shadow: 0 14px 30px rgba(19,13,34,0.08), 0 10px 24px rgba(94,23,235,0.08);
+}
+
+.opportunity-note::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(94,23,235,0.12), transparent);
+  pointer-events: none;
+}
+
+.opportunity-note span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
 .mini-offer {
   max-width: 520px;
-  margin: 28px auto 0;
+  margin: 0 auto;
   padding: 24px 22px;
   border-radius: var(--r);
   text-align: center;
@@ -530,21 +563,52 @@ section {
 }
 
 .mini-offer__price-wrap {
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
+  max-width: 240px;
+}
+
+.mini-offer__installments {
+  font-size: 11px;
+  color: var(--dim-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
 }
 
 .mini-offer__price {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: clamp(26px, 7vw, 36px);
-  line-height: 1.1;
+  font-size: clamp(46px, 13vw, 58px);
+  color: var(--text-dark);
+  line-height: 1;
 }
 
-.mini-offer__price span {
-  font-size: inherit;
-  vertical-align: baseline;
-  margin-top: 0;
-  display: inline;
+.mini-offer__price-cur {
+  font-size: clamp(22px, 5.8vw, 26px);
+  vertical-align: top;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mini-offer__price-dec {
+  font-size: clamp(30px, 8vw, 38px);
+}
+
+.mini-offer__or {
+  font-size: 12px;
+  color: var(--dim-dark);
+  margin: 6px 0 5px;
+}
+
+.mini-offer__cash {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--muted-dark);
+}
+
+.mini-offer__cash strong {
+  color: var(--text-dark);
 }
 
 .mini-offer__guarantee {
@@ -1110,7 +1174,9 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
   }
 
   .offer-card { padding: 38px 34px 42px; }
-  .mini-offer { padding: 28px 28px 30px; }
+  .opportunity-note { margin-bottom: 18px; }
+  .mini-offer { padding: 30px 28px 32px; }
+  .mini-offer__price-wrap { max-width: 250px; }
 
   .btn--primary, .btn--ghost {
     width: auto;
@@ -1200,12 +1266,17 @@ footer a { color: var(--dim); text-underline-offset: 3px; }
 
 <section class="section-light">
   <div class="wrap">
+    <div class="opportunity-note reveal"><span>Oportunidade Única</span></div>
+
     <div class="mini-offer reveal">
       <p class="mini-offer__top">Comece agora</p>
       <h3 class="mini-offer__title">Protocolo de Força Prática</h3>
       <p class="mini-offer__desc">10 aulas + 4 bônus exclusivos para colocar sua vida em ordem com direção, estrutura e ação prática desde os primeiros dias.</p>
       <div class="mini-offer__price-wrap">
-        <div class="mini-offer__price">9x de R$8,80 ou R$67 à vista</div>
+        <p class="mini-offer__installments">9x de</p>
+        <div class="mini-offer__price"><span class="mini-offer__price-cur">R$</span>8<span class="mini-offer__price-dec">,80</span></div>
+        <p class="mini-offer__or">ou</p>
+        <p class="mini-offer__cash"><strong>R$67</strong> à vista</p>
       </div>
       <a href="https://pay.hotmart.com/Y103675280S?checkoutMode=10" class="btn btn--primary">Quero Entrar por R$67</a>
       <p class="mini-offer__guarantee">Acesso imediato · Garantia de 7 dias</p>
