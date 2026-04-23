@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
@@ -486,30 +486,12 @@ section {
   border-left: 20px solid var(--white);
 }
 
-.hero__video-glass iframe,
-.hero__video-frame {
+.hero__video-glass iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: none;
-}
-
-.hero__video-frame {
-  background: #000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.hero__video-glass.is-playing .hero__video-frame {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.hero__video-glass.is-playing .video-poster {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .hero__cta {
@@ -1421,20 +1403,7 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
       </p>
 
       <div class="hero__video-section">
-        <div
-          class="hero__video-glass"
-          id="video-container"
-        >
-          <iframe
-            class="hero__video-frame"
-            id="video-frame"
-            data-src="https://www.youtube-nocookie.com/embed/2RSMdLowagc?autoplay=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0"
-            title="Vídeo de apresentação"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-
+        <div class="hero__video-glass">
           <button
             type="button"
             class="video-poster"
@@ -1442,21 +1411,32 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
             aria-label="Reproduzir vídeo de apresentação"
           >
             <img
-              src="https://i.ytimg.com/vi/2RSMdLowagc/maxresdefault.jpg"
-              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2RSMdLowagc/hqdefault.jpg';"
-              alt="Thumbnail do vídeo de apresentação"
+              src="https://i.ytimg.com/vi/2RSMdLowagc/hqdefault.jpg"
+              alt="Capa do vídeo Protocolo de Força Prática"
               loading="eager"
               fetchpriority="high"
             >
             <span class="video-poster__play" aria-hidden="true"></span>
           </button>
 
+          <iframe
+            id="hero-video-iframe"
+            class="hero__video-iframe"
+            data-src="https://www.youtube-nocookie.com/embed/2RSMdLowagc?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+            src=""
+            title="Protocolo de Força Prática"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            hidden>
+          </iframe>
+
           <noscript>
             <iframe
-              src="https://www.youtube-nocookie.com/embed/2RSMdLowagc?autoplay=0&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0"
+              src="https://www.youtube-nocookie.com/embed/2RSMdLowagc?rel=0&modestbranding=1&playsinline=1"
               title="Protocolo de Força Prática"
               referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen>
             </iframe>
           </noscript>
@@ -2060,23 +2040,19 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
 
 <script>
 (function () {
-  const container = document.getElementById('video-container');
   const poster = document.getElementById('video-poster');
-  const frame = document.getElementById('video-frame');
+  const iframe = document.getElementById('hero-video-iframe');
 
-  if (!container || !poster || !frame) return;
+  if (!poster || !iframe) return;
 
-  let loaded = false;
+  poster.addEventListener('click', function () {
+    if (!iframe.src) {
+      iframe.src = iframe.dataset.src;
+    }
 
-  function loadVideo() {
-    if (loaded) return;
-    loaded = true;
-
-    frame.src = frame.dataset.src;
-    container.classList.add('is-playing');
-  }
-
-  poster.addEventListener('click', loadVideo, { once: true });
+    iframe.hidden = false;
+    poster.style.display = 'none';
+  }, { once: true });
 })();
 </script>
 
