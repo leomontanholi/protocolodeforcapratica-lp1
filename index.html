@@ -486,12 +486,30 @@ section {
   border-left: 20px solid var(--white);
 }
 
-.hero__video-glass iframe {
+.hero__video-glass iframe,
+.hero__video-frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.hero__video-frame {
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.hero__video-glass.is-playing .hero__video-frame {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero__video-glass.is-playing .video-poster {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hero__cta {
@@ -1406,8 +1424,17 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
         <div
           class="hero__video-glass"
           id="video-container"
-          data-embed-url="https://www.youtube-nocookie.com/embed/2RSMdLowagc?autoplay=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0"
         >
+          <iframe
+            class="hero__video-frame"
+            id="video-frame"
+            data-src="https://www.youtube-nocookie.com/embed/2RSMdLowagc?autoplay=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0"
+            title="Vídeo de apresentação"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+
           <button
             type="button"
             class="video-poster"
@@ -1415,7 +1442,8 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
             aria-label="Reproduzir vídeo de apresentação"
           >
             <img
-              src="https://i.ytimg.com/vi/2RSMdLowagc/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2RSMdLowagc/hqdefault.jpg';"
+              src="https://i.ytimg.com/vi/2RSMdLowagc/maxresdefault.jpg"
+              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2RSMdLowagc/hqdefault.jpg';"
               alt="Thumbnail do vídeo de apresentação"
               loading="eager"
               fetchpriority="high"
@@ -2034,8 +2062,9 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
 (function () {
   const container = document.getElementById('video-container');
   const poster = document.getElementById('video-poster');
+  const frame = document.getElementById('video-frame');
 
-  if (!container || !poster) return;
+  if (!container || !poster || !frame) return;
 
   let loaded = false;
 
@@ -2043,15 +2072,8 @@ footer a { color: #ffffff; text-underline-offset: 3px; }
     if (loaded) return;
     loaded = true;
 
-    const iframe = document.createElement('iframe');
-    iframe.src = container.dataset.embedUrl;
-    iframe.title = 'Vídeo de apresentação';
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    iframe.allow = 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; web-share';
-    iframe.allowFullscreen = true;
-
-    container.innerHTML = '';
-    container.appendChild(iframe);
+    frame.src = frame.dataset.src;
+    container.classList.add('is-playing');
   }
 
   poster.addEventListener('click', loadVideo, { once: true });
